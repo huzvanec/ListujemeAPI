@@ -1,4 +1,4 @@
-package cz.jeme.programu.floriapi;
+package cz.jeme.programu.florianapi;
 
 import com.artifex.mupdf.fitz.Context;
 import org.jetbrains.annotations.NotNull;
@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FloriApi {
+public class Main {
     public static void main(final String @NotNull [] args) throws ClassNotFoundException {
         Class.forName(FlorianUtils.class.getName()); // initialize FlorianUtils
 
@@ -20,6 +20,6 @@ public class FloriApi {
             );
         }
 
-        SpringApplication.run(FloriApi.class, args);
+        SpringApplication.run(Main.class, args);
     }
 }

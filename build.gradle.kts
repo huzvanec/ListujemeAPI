@@ -15,15 +15,12 @@ java {
 
 repositories {
     mavenCentral()
-    flatDir {
-        dirs("lib/mupdf")
-    }
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     compileOnly("org.jetbrains:annotations:26.0.1")
-    implementation(files("lib/mupdf/libmupdf.jar"))
+    implementation(files("vendor/mupdf/build/java/release/libmupdf.jar"))
 }
 
 tasks.jar {

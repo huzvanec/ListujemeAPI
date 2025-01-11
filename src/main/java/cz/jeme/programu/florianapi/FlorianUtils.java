@@ -1,4 +1,4 @@
-package cz.jeme.programu.floriapi;
+package cz.jeme.programu.florianapi;
 
 import org.jetbrains.annotations.NotNull;
 

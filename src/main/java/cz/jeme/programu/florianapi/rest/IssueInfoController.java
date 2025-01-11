@@ -1,6 +1,6 @@
-package cz.jeme.programu.floriapi.rest;
+package cz.jeme.programu.florianapi.rest;
 
-import cz.jeme.programu.floriapi.FlorianUtils;
+import cz.jeme.programu.florianapi.FlorianUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
