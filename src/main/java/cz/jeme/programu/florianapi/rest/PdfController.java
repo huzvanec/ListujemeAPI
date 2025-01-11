@@ -100,7 +100,7 @@ public final class PdfController {
                     content
             );
         } catch (final IOException e) {
-            throw new RuntimeException("Could not save generated PDF content", e);
+            throw new IllegalStateException("Could not save generated PDF content", e);
         }
     }
 
@@ -110,7 +110,7 @@ public final class PdfController {
         try {
             if (!contentFile.exists()) generateContent(name);
             return JSON_MAPPER.readValue(contentFile, Object.class);
-        } catch (final RuntimeException | IOException e) {
+        } catch (final IllegalStateException | IOException e) {
             throw new RuntimeException("Could not obtain PDF content", e);
         }
     }
