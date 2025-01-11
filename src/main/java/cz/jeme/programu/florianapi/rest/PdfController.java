@@ -58,6 +58,7 @@ public final class PdfController {
     }
 
     private static final @NotNull Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
+    private static final @NotNull Pattern HYPHENATION_PATTERN = Pattern.compile("\\s*\u00AD\\s*");
     private static final @NotNull ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     private static void generateContent(final @NotNull String name) {
@@ -70,7 +71,7 @@ public final class PdfController {
             final Page page = document.loadPage(i);
             builder.setLength(0);
 
-            final StructuredText.TextBlock[] blocks = page.toStructuredText("dehyphenate").getBlocks();
+            final StructuredText.TextBlock[] blocks = page.toStructuredText().getBlocks();
             for (final StructuredText.TextBlock block : blocks) {
                 for (final StructuredText.TextLine line : block.lines) {
                     for (final StructuredText.TextChar textChar : line.chars)
@@ -82,10 +83,10 @@ public final class PdfController {
 
             page.destroy();
 
-            final String text = WHITESPACE_PATTERN.matcher(builder.toString())
-                    .replaceAll(" ")
-                    .trim();
-            content.add(text);
+            String text = builder.toString();
+            text = WHITESPACE_PATTERN.matcher(text).replaceAll(" ");
+            text = HYPHENATION_PATTERN.matcher(text).replaceAll("");
+            content.add(text.trim());
         }
         document.destroy();
         try {
