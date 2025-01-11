@@ -1,6 +1,6 @@
 # FlorianAPI
 
-## Build Preparation (ran only once)
+## Build preparation (ran only once)
 
 ```bash
 # Clone the repo
@@ -43,4 +43,6 @@ To run the jar file, modify the VM options to find the library.
 ```bash
 java -Djava.library.path=. -jar ./FlorianAPI-0.0.1-SNAPSHOT.jar
 ```
+The program will create directories next to the jar when ran for the first time.
+The `pdfs` folder should be filled with newspaper PDFs
 
