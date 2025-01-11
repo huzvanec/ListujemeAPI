@@ -40,14 +40,14 @@ public final class IssueInfoController {
     }
 
     @GetMapping("/{name}")
-    public @NotNull IssueInfo getIssueInfo(final @NotNull @PathVariable String name) {
+    public @NotNull IssueInfo issueInfo(final @NotNull @PathVariable String name) {
         return IssueInfo.parse(name);
     }
 
     private static final @NotNull Pattern PDF_PATTERN = Pattern.compile("\\.pdf$", Pattern.CASE_INSENSITIVE);
 
     @GetMapping
-    public @NotNull List<IssueInfo> getIssueInfos() {
+    public @NotNull List<IssueInfo> issueInfos() {
         return Arrays.stream(Objects.requireNonNull(FlorianUtils.PDF_FOLDER.listFiles(), "Cannot list PDF folder"))
                 .map(File::getName)
                 .filter(fileName -> PDF_PATTERN.matcher(fileName).find())

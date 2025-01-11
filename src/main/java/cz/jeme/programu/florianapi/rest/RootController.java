@@ -17,7 +17,7 @@ public final class RootController {
     }
 
     @GetMapping
-    public @NotNull RootResponse getRoot() {
+    public @NotNull RootResponse root() {
         return new RootResponse();
     }
 }

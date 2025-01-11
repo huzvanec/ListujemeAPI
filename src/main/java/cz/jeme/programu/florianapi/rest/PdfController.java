@@ -32,19 +32,29 @@ public final class PdfController {
         // bean
     }
 
-    @GetMapping("/view")
-    public @NotNull ResponseEntity<InputStreamResource> view(final @NotNull @PathVariable String name) {
+    private static @NotNull ResponseEntity<InputStreamResource> readPdf(final @NotNull String name, final boolean download) {
         final File pdfFile = FlorianUtils.getPdfFile(name)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
         final String nameEncoded = URLEncoder.encode(pdfFile.getName(), StandardCharsets.UTF_8);
+        final String disposition = download ? "attachment" : "inline";
         try {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + nameEncoded)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, disposition + ";filename=" + nameEncoded)
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(new InputStreamResource(new FileInputStream(pdfFile)));
         } catch (final IOException e) {
             throw new RuntimeException("Could not read PDF", e);
         }
+    }
+
+    @GetMapping("/view")
+    public @NotNull ResponseEntity<InputStreamResource> view(final @NotNull @PathVariable String name) {
+        return readPdf(name, false);
+    }
+
+    @GetMapping("/download")
+    public @NotNull ResponseEntity<InputStreamResource> download(final @NotNull @PathVariable String name) {
+        return readPdf(name, true);
     }
 
     private static final @NotNull Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
@@ -95,7 +105,7 @@ public final class PdfController {
     }
 
     @GetMapping("/content")
-    public @NotNull Object getContent(final @NotNull @PathVariable String name) {
+    public @NotNull Object content(final @NotNull @PathVariable String name) {
         final File contentFile = Path.of(FlorianUtils.CONTENT_FOLDER.getAbsolutePath(), name + ".json").toFile();
         try {
             if (!contentFile.exists()) generateContent(name);
@@ -128,7 +138,7 @@ public final class PdfController {
     }
 
     @GetMapping("/preview")
-    public @NotNull Object getPreview(final @NotNull @PathVariable String name) {
+    public @NotNull Object preview(final @NotNull @PathVariable String name) {
         final File previewFile = Path.of(
                 FlorianUtils.PREVIEW_FOLDER.getAbsolutePath(),
                 name + ".png"

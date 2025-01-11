@@ -19,7 +19,7 @@ public final class FlorianErrorController implements ErrorController {
     }
 
     @ExceptionHandler(Exception.class)
-    public @NotNull ResponseEntity<FlorianError> handleApi(final @NotNull Exception exception) {
+    public @NotNull ResponseEntity<FlorianError> handle(final @NotNull Exception exception) {
         if (exception instanceof final ErrorResponse response)
             return new FlorianError(response.getStatusCode()).toResponse();
         LOGGER.error("Unhandled exception", exception);
