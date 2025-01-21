@@ -18,7 +18,7 @@ public class Main {
         } catch (final UnsatisfiedLinkError e) {
             throw new IllegalStateException(
                     "Failed to load MuPDF native library. " +
-                    "Ensure that the library is located next to the FloriApi jar " +
+                    "Ensure that the library is located next to the FlorianApi jar " +
                     "and that \"-Djava.library.path=.\" is present in the VM arguments"
             );
         }
@@ -34,6 +34,7 @@ public class Main {
                 registry.addMapping("/**")
                         .allowedOrigins(
 //                                "http://localhost:5173",
+//                                "http://192.168.1.70:5173",
                                 "https://listu.jeme.cz"
                         );
             }
