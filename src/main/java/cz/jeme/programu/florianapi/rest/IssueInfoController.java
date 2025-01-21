@@ -3,10 +3,12 @@ package cz.jeme.programu.florianapi.rest;
 import cz.jeme.programu.florianapi.FlorianUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.util.Arrays;
@@ -41,6 +43,7 @@ public final class IssueInfoController {
 
     @GetMapping("/{name}")
     public @NotNull IssueInfo issueInfo(final @NotNull @PathVariable String name) {
+        FlorianUtils.getPdfFile(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found!"));
         return IssueInfo.parse(name);
     }
 
