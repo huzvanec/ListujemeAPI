@@ -4,11 +4,10 @@ import com.artifex.mupdf.fitz.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.jeme.programu.florianapi.FlorianUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,28 +31,29 @@ public final class PdfController {
         // bean
     }
 
-    private static @NotNull ResponseEntity<InputStreamResource> readPdf(final @NotNull String name, final boolean download) {
+    private static @NotNull ResponseEntity<Resource> readPdf(final @NotNull String name, final boolean download) {
         final File pdfFile = FlorianUtils.getPdfFile(name)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
-        final String nameEncoded = URLEncoder.encode(pdfFile.getName(), StandardCharsets.UTF_8);
-        final String disposition = download ? "attachment" : "inline";
-        try {
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, disposition + ";filename=" + nameEncoded)
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .body(new InputStreamResource(new FileInputStream(pdfFile)));
-        } catch (final IOException e) {
-            throw new RuntimeException("Could not read PDF", e);
-        }
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(
+                ContentDisposition.builder(download ? "attachment" : "inline")
+                        .filename(URLEncoder.encode(pdfFile.getName(), StandardCharsets.UTF_8))
+                        .build()
+        );
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(new FileSystemResource(pdfFile));
     }
 
     @GetMapping("/view")
-    public @NotNull ResponseEntity<InputStreamResource> view(final @NotNull @PathVariable String name) {
+    public @NotNull ResponseEntity<Resource> view(final @NotNull @PathVariable String name) {
         return readPdf(name, false);
     }
 
     @GetMapping("/download")
-    public @NotNull ResponseEntity<InputStreamResource> download(final @NotNull @PathVariable String name) {
+    public @NotNull ResponseEntity<Resource> download(final @NotNull @PathVariable String name) {
         return readPdf(name, true);
     }
 
