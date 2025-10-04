@@ -1,7 +1,7 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.4.1"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 group = "cz.jeme"
@@ -18,11 +18,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    compileOnly("org.jetbrains:annotations:26.0.1")
+    implementation(libs.spring.boot.starter.web)
     implementation(files("vendor/mupdf/build/java/release/libmupdf.jar"))
+    compileOnly(libs.jetbrains.annotations)
 }
 
-tasks.jar {
-    enabled = false
+tasks {
+    jar {
+        enabled = false
+    }
 }
