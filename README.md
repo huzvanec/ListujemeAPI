@@ -1,5 +1,7 @@
 # ListujemeAPI
 
+This is the backend REST API for the [Listujeme project](https://listu.jeme.cz).
+
 ## Development
 
 ### Prepare the build environment
