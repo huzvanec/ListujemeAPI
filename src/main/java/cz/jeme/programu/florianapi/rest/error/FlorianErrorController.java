@@ -18,7 +18,7 @@ public class FlorianErrorController implements ErrorController {
     }
 
     @GetMapping
-    public @NotNull ResponseEntity<FlorianError> handleError(final HttpServletRequest request) {
+    public @NotNull ResponseEntity<FlorianError> handleError(final @NotNull HttpServletRequest request) {
         return new FlorianError(HttpStatusCode.valueOf(
                 (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE))
         ).toResponse();
