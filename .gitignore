@@ -36,7 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
-### FlorianApi ###
+### ListujemeApi ###
 pdfs/
 cache/
 lib/

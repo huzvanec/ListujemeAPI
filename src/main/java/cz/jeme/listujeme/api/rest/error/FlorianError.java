@@ -1,4 +1,4 @@
-package cz.jeme.programu.florianapi.rest.error;
+package cz.jeme.listujeme.api.rest.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;

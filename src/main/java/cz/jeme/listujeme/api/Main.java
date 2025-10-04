@@ -1,4 +1,4 @@
-package cz.jeme.programu.florianapi;
+package cz.jeme.listujeme.api;
 
 import com.artifex.mupdf.fitz.Context;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,7 @@ public class Main {
         } catch (final UnsatisfiedLinkError e) {
             throw new IllegalStateException(
                     "Failed to load MuPDF native library. " +
-                    "Ensure that the library is located next to the FlorianApi jar " +
+                    "Ensure that the library is located next to the ListujemeAPI jar " +
                     "and that \"-Djava.library.path=.\" is present in the VM arguments"
             );
         }

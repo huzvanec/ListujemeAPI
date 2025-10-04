@@ -1,6 +1,6 @@
-package cz.jeme.programu.florianapi.rest;
+package cz.jeme.listujeme.api.rest;
 
-import cz.jeme.programu.florianapi.FlorianUtils;
+import cz.jeme.listujeme.api.FlorianUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.http.HttpStatus;

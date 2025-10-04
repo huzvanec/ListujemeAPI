@@ -1,4 +1,4 @@
-package cz.jeme.programu.florianapi.rest.error;
+package cz.jeme.listujeme.api.rest.error;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

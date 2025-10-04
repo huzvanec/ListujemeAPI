@@ -1,1 +1,1 @@
-rootProject.name = "FlorianAPI"
+rootProject.name = "ListujemeAPI"

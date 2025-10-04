@@ -1,11 +1,11 @@
-# FlorianAPI
+# ListujemeAPI
 
 ## Build preparation (ran only once)
 
 ```bash
 # Clone the repo
-git clone https://github.com/huzvanec/FlorianAPI.git
-cd FlorianAPI
+git clone https://github.com/huzvanec/ListujemeAPI.git
+cd ListujemeAPI
 
 # Init and update dependencies (may take a while)
 git submodule update --init --recursive
@@ -34,14 +34,14 @@ must be placed in the same folder as the jar.
 ```
 # Linux structure example
 .
-├── FlorianAPI-0.0.1-SNAPSHOT.jar
+├── ListujemeAPI-0.0.1-SNAPSHOT.jar
 └── libmupdf_java64.so
 ```
 
 To run the jar file, modify the VM options to find the library.
 
 ```bash
-java -Djava.library.path=. -jar ./FlorianAPI-0.0.1-SNAPSHOT.jar
+java -Djava.library.path=. -jar ./ListujemeAPI-0.0.1-SNAPSHOT.jar
 ```
 The program will create directories next to the jar when ran for the first time.
 The `pdfs` folder should be filled with newspaper PDFs

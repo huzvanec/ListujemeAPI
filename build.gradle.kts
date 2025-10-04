@@ -4,8 +4,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "cz.jeme.programu"
-version = "0.0.1-SNAPSHOT"
+group = "cz.jeme"
+version = "1.0.0"
 
 java {
     toolchain {

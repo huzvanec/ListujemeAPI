@@ -1,8 +1,8 @@
-package cz.jeme.programu.florianapi.rest;
+package cz.jeme.listujeme.api.rest;
 
 import com.artifex.mupdf.fitz.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.jeme.programu.florianapi.FlorianUtils;
+import cz.jeme.listujeme.api.FlorianUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
