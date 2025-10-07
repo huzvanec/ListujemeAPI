@@ -2,6 +2,7 @@ package cz.jeme.listujeme.api;
 
 import com.artifex.mupdf.fitz.Context;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -26,17 +27,19 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
+    @Value("${app.cors.allowed-all:false}")
+    private boolean allowAllCors;
+
     @Bean
     protected @NotNull WebMvcConfigurer cors() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(final @NotNull CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(
-//                                "http://localhost:5173",
-//                                "http://192.168.1.70:5173",
-                                "https://listu.jeme.cz"
-                        );
+                var mapping = registry.addMapping("/**")
+                        .allowedMethods("*")
+                        .allowCredentials(true);
+                if (allowAllCors) mapping.allowedOriginPatterns("*");
+                else mapping.allowedOrigins("https://listu.jeme.cz");
             }
         };
     }

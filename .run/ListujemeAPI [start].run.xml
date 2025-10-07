@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ListujemeAPI [start]" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
     <module name="ListujemeAPI.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="cz.jeme.listujeme.api.Main" />
     <option name="VM_PARAMETERS" value="-Djava.library.path=./vendor/mupdf/build/java/release" />
