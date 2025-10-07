@@ -1,52 +1,56 @@
 # ListujemeAPI
 
-This is the backend REST API for the [Listujeme project](https://listu.jeme.cz).
+ListujemeAPI je backend projektu [Listujeme](https://github.com/huzvanec/Listujeme.git).
 
 ## Development
 
-### Prepare the build environment
+Požadavky:
+
+- [Git](https://git-scm.com/downloads)
+- [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
+
+### Příprava projektu
 
 ```shell
-# Clone the repo
+# Klonování backend repa
 git clone https://github.com/huzvanec/ListujemeAPI.git
 cd ListujemeAPI
 
-# Init and update dependencies (may take a while)
+# Inicializace a aktualizace MuPDF (může trvat)
 git submodule update --init --recursive
 
-# Build MuPDF
-# This has to be run using javac version <= 17 (javac --version)
+# Buildování MuPDF
 cd vendor/mupdf/platform/java
+# Musí být spuštěno s javac verzí <= 17 (javac --version)
 make
 cd ../../../..
 ```
 
-### Building
+### Build
 
 ```shell
 ./gradlew bootJar
 ```
 
-The output jar is located in `build/libs`
+Výsledný jar se nachází v `build/libs`
 
-### Execution
+### Spuštění jaru
 
-To run the jar file, the native MuPDF library file
-(from `vendor/mupdf/build/java/release/`)
-must be placed in the same folder as the jar.
+Aby se dal jar spustit, musí být načtena zbuildovaná native MuPDF knihovna (z `./vendor/mupdf/build/java/release/`).
 
 ```
-# Linux structure example
+# Př.: Knihovna může být vedle jaru
 .
-├── ListujemeAPI-1.0.0.jar
-└── libmupdf_java64.so
+├── ListujemeAPI.jar
+└── libmupdf_java64.so # Linuxová native knihovna
 ```
 
-To run the jar file, modify the VM options to find the library.
+Při spuštění jaru musí `-Djava.library.path` obsahovat cestu k adresáři obsahující native MuPDF knihovnu.
 
-```bash
-java -Djava.library.path=. -jar ./ListujemeAPI-0.0.1-SNAPSHOT.jar
+```shell
+# Př.: Knihovna leží vedle jaru
+java -Djava.library.path=. -jar ./ListujemeAPI.jar
 ```
 
-The program will create directories next to the jar when ran for the first time.
-The `pdfs` folder should be filled with newspaper PDFs
+Po prvním startu vytvoří API složky `cache/` a `pdfs/`. Do složky `pdfs/` se pak přidávají PDF soubory čísel
+zpravodaje.
