@@ -1,7 +1,6 @@
 package cz.jeme.listujeme.api.rest;
 
 import com.artifex.mupdf.fitz.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.jeme.listujeme.api.FlorianUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.io.FileSystemResource;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -111,7 +111,7 @@ public final class PdfController {
         try {
             if (!contentFile.exists()) generateContent(name);
             return JSON_MAPPER.readValue(contentFile, Object.class);
-        } catch (final IllegalStateException | IOException e) {
+        } catch (final IllegalStateException e) {
             throw new RuntimeException("Could not obtain PDF content", e);
         }
     }
